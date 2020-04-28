@@ -91,6 +91,7 @@ public:
 
     void remove(Key key) {
         remove(root, key);
+//        removeInIteration(root,key);
     }
 
 
@@ -180,7 +181,7 @@ private:
     }
 
 
-    // 删除掉以node为根的二分搜索树中键值为key的节点
+    // 删除掉以node为根的二分搜索树中键值为key的节点  递归方式
     // 返回删除节点后新的二分搜索树的根
     Node *remove(Node *node, Key key) {
         if (node == NULL)
@@ -216,6 +217,49 @@ private:
             return successor;
 
         }
+    }
+
+
+    // 删除指定结点非递归方式
+    Node *removeInIteration(Node *node, Key key) {
+        Node *current = node;  // 初始化指向根节点
+        Node *pre = NULL;  // pre记录的是current的父节点
+        while (current != NULL && current->key != key) {
+            pre = next;
+            if (current->key > key)
+                current = current->right;
+            else
+                current = current->left;
+        }
+        if (current == NULL) return NULL;  // 没有找到
+
+        if (current->left != NULL && current->right != NULL) {
+            Node minCurrent = current->right;
+            Node minPre = current;
+            while (minCurrent.left != NULL) {
+                minPre = minCurrent;
+                minCurrent = minCurrent.left;
+            }
+            current->key = minPre.key;
+            current->value = minPre.value;
+            current = &minCurrent;
+            pre = &minPre;
+        }
+
+        // 删除节点是叶子节点或者仅有一个子节点
+        Node child;
+        if (current->eft != NULL) {
+            child = current->left;
+        } else if (current->right != NULL) {
+            child = current->right;
+        } else
+            child = NULL;
+
+        if (pre == NULL) node = child; // 删除的是根节点 else if (pp.left == p) pp.left = child; else pp.right = child;
+        else if (pre->left == current) pre->left = child;
+        else pre->right = child;
+        delete current;
+        count--;
     }
 
     // 前序遍历
