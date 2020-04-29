@@ -3,4 +3,4 @@ project(Algorithm)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Algorithm main.cpp tree/BinarySearchTree.cpp)
+add_executable(Algorithm main.cpp tree/BinarySearchTree.cpp union_find/UnionFindTestHelper.h union_find/UnionFind1.h union_find/UnionFind2.h union_find/UnionFind3.h union_find/UnionFind4.h union_find/UnionFind5.h)
